@@ -1,3 +1,5 @@
+import tkinter
+
 import openai
 from tkinter import *
 from tkinter import messagebox
@@ -22,7 +24,8 @@ def ChatGPT():
   answer = completion["choices"][0]["message"]["content"]
   print(completion)
   print(answer)
-  canvas.config(answer)
+  answer_entry.delete('1.0', END)
+  answer_entry.insert(INSERT,answer)
 
 
 def whisper():
@@ -36,18 +39,19 @@ def whisper():
 
 windows = Tk()
 windows.title("chatGPT UI")
-windows.geometry("800x500")
+windows.geometry("800x800")
 windows.config(padx=50,pady=50)
 
-canvas = Canvas(width=500, height = 400,bg="yellow", highlightthickness=0)
-canvas.create_text(100,112,text="")
-canvas.grid(columns=3, row=3)
-
 website_label = Label(text="ASK")
-website_label.grid(column=0,row=2)
+website_label.grid(column=0,row=2, pady=5)
 
-# answer_label = Label(text="")
-# answer_label.grid(columns=4, row=3)
+answer_label = Label(text="AI ANSWER")
+answer_label.grid(column=0, row=3)
+
+answer_entry = Text(width=60, height =25)
+answer_entry.grid(column=1, row=3)
+answer_entry.focus()
+
 
 API_KEY_label = Label(text="ENTER YOUR API KEY")
 API_KEY_label.grid(column=0,row=0)
@@ -59,11 +63,11 @@ API_KEY_entry.focus()
 
 
 website_entry = Text(width=60, height =10)
-website_entry.grid(column=1, row=2)
+website_entry.grid(column=1, row=2,pady=10)
 website_entry.focus()
 
 search_button = Button(text="Chat",width=15,command=ChatGPT)
-search_button.grid(column=2,row=2,columnspan=2)
+search_button.grid(column=2,row=2,columnspan=2, padx=10)
 
 
 windows.mainloop()
